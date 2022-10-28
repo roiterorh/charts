@@ -4,9 +4,6 @@
 
 replicaCount: 1
 
-
-
-
 image:
   repository: lissy93/dashy
   pullPolicy: IfNotPresent
