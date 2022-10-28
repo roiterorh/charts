@@ -3,6 +3,16 @@ entries:
   dashy:
   - apiVersion: v2
     appVersion: 2.1.1
+    created: "2022-10-28T10:39:06.8473675Z"
+    description: A Helm chart for Kubernetes
+    digest: 26fb941ce8b38e562df2a34dca00992c69491e680f210bf37b9fdb2e0b26df4b
+    name: dashy
+    type: application
+    urls:
+    - https://github.com/roiterorh/charts/releases/download/dashy-0.1.2/dashy-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 2.1.1
     created: "2022-10-28T10:31:45.958543035Z"
     description: A Helm chart for Kubernetes
     digest: faa1a2cc06525d3615425d283eaa43de9035b4fbdc1b54d2d7ac42b3cec48512
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://github.com/roiterorh/charts/releases/download/dashy-0.1.0/dashy-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-28T10:31:45.958550736Z"
+generated: "2022-10-28T10:39:06.8473785Z"
