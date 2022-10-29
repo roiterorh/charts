@@ -32,13 +32,9 @@ service:
   port: 80
 
 ingress:
-  enabled: true
-  hosts:
-    - host: dashy.localtest.me
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: 
-   - hosts:
-       - dashy.localtest.me
+  enable: false
 
+
+pageInfo: ""
+appConfig: ""
+sections: []

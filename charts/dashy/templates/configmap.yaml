@@ -5,9 +5,7 @@ metadata:
 data:
   conf.yml: |
     pageInfo:
-      title: Hello, Dev||Ops
-      description: General browser startpage
-      logo: https://i.ibb.co/71WyyzM/little-bot-3.png
+
     appConfig:
       hideComponents:
         hideSearch: true
