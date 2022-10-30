@@ -7,6 +7,10 @@ on:
 
 jobs:
   release:
+    strategy:
+      matrix:
+        charts: [code-server, dashy]
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -14,12 +18,34 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      # - name: Get changed files in the docs folder
+      #   id: changed-files-specific
+      #   uses: tj-actions/changed-files@v34
+      #   with:
+      #     files: |
+      #       charts/${{ matrix.charts }}/**
+     
+      # - name: Configure Git
+      #   run: |
+      #     git config user.name "$GITHUB_ACTOR"
+      #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      # - run: cat  | yq
+      - name: Set foobar to cool
+        id: release_version
+        uses: mikefarah/yq@v4.27.5
+        with:
+          cmd: yq .version charts/${{ matrix.charts }}/Chart.yaml
 
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.4.1
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - run: echo ${{steps.release_version.outputs    }}
+      # - uses: cardinalby/git-get-release-action@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     tag: 
+
+      # - name: Run chart-releaser
+      #   if: steps.changed-files-specific.outputs.any_changed == 'true'
+      #   uses: helm/chart-releaser-action@v1.4.1
+      #   env:
+      #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      #     CR_PACKAGE_PATH: ${{ matrix.charts }}
