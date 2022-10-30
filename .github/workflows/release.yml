@@ -35,12 +35,18 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq .version charts/${{ matrix.charts }}/Chart.yaml
-
-      - uses: cardinalby/git-get-release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - uses: dev-drprasad/delete-tag-and-release@v0.2.0
         with:
-          tag: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
+          delete_release: true 
+          tag_name: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - uses: cardinalby/git-get-release-action@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ github.token }}
+      #   with:
+      #     tag: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
       # - name: Run chart-releaser
       #   if: steps.changed-files-specific.outputs.any_changed == 'true'
       #   uses: helm/chart-releaser-action@v1.4.1
