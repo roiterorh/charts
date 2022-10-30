@@ -18,38 +18,29 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: Get changed files in the docs folder
-      #   id: changed-files-specific
-      #   uses: tj-actions/changed-files@v34
-      #   with:
-      #     files: |
-      #       charts/${{ matrix.charts }}/**
-     
-      # - name: Configure Git
-      #   run: |
-      #     git config user.name "$GITHUB_ACTOR"
-      #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      # - run: cat  | yq
-      - name: Set foobar to cool
-        id: release_version
-        uses: mikefarah/yq@master
+      - name: Get changed files in the docs folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v34
         with:
-          cmd: yq .version charts/${{ matrix.charts }}/Chart.yaml
+          files: |
+            charts/${{ matrix.charts }}/**
+     
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
       - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         with:
           delete_release: true 
           tag_name: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - uses: cardinalby/git-get-release-action@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ github.token }}
-      #   with:
-      #     tag: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
-      # - name: Run chart-releaser
-      #   if: steps.changed-files-specific.outputs.any_changed == 'true'
-      #   uses: helm/chart-releaser-action@v1.4.1
-      #   env:
-      #     CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-      #     CR_PACKAGE_PATH: ${{ matrix.charts }}
+      - name: Run chart-releaser
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        uses: helm/chart-releaser-action@v1.4.1
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_PACKAGE_PATH: ${{ matrix.charts }}
