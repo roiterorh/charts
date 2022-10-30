@@ -32,11 +32,11 @@ jobs:
       # - run: cat  | yq
       - name: Set foobar to cool
         id: release_version
-        uses: mikefarah/yq@v4.27.5
+        uses: mikefarah/yq@master
         with:
           cmd: yq .version charts/${{ matrix.charts }}/Chart.yaml
 
-      - run: echo ${{steps.release_version.outputs    }}
+      - run: echo ${{ steps.release_version.outputs.result }}
       # - uses: cardinalby/git-get-release-action@v1
       #   env:
       #     GITHUB_TOKEN: ${{ github.token }}
