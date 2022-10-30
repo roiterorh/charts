@@ -36,13 +36,11 @@ jobs:
         with:
           cmd: yq .version charts/${{ matrix.charts }}/Chart.yaml
 
-      - run: echo ${{ steps.release_version.outputs.result }}
-      # - uses: cardinalby/git-get-release-action@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ github.token }}
-      #   with:
-      #     tag: 
-
+      - uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          tag: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
       # - name: Run chart-releaser
       #   if: steps.changed-files-specific.outputs.any_changed == 'true'
       #   uses: helm/chart-releaser-action@v1.4.1
