@@ -34,4 +34,5 @@ jobs:
         uses: helm/chart-releaser-action@v1.4.1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_PACKAGE_PATH: charts/${{ matrix.charts }}
+          CR_PACKAGE_PATH: ${{ matrix.charts }}
+          CR_GIT_REPO: charts
