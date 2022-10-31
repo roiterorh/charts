@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  code-server:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-10-31T17:18:07.110767892Z"
+    description: A Helm chart for Kubernetes
+    digest: 849ad79edff166d2bae480c7e7a8018ff4074dae8683138bdcf416648aa75002
+    name: code-server
+    type: application
+    urls:
+    - https://github.com/roiterorh/helm/releases/download/code-server-0.0.1/code-server-0.0.1.tgz
+    version: 0.0.1
   dashy:
   - apiVersion: v2
     appVersion: 2.1.1
@@ -31,4 +42,14 @@ entries:
     urls:
     - https://github.com/roiterorh/charts/releases/download/dashy-0.1.0/dashy-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-28T10:39:06.8473785Z"
+  - apiVersion: v2
+    appVersion: 2.1.1
+    created: "2022-10-31T17:18:07.25037883Z"
+    description: A Helm chart for Kubernetes
+    digest: 8c8e66ca93d9e9ac2777bee4aaa3baa197f54aa00239e6e033c0adc54daec5a3
+    name: dashy
+    type: application
+    urls:
+    - https://github.com/roiterorh/helm/releases/download/dashy-0.0.1/dashy-0.0.1.tgz
+    version: 0.0.1
+generated: "2022-10-31T17:18:07.25038752Z"
