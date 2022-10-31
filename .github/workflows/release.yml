@@ -31,13 +31,15 @@ jobs:
           tag_name: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-  release:
-    runs-on: ubuntu-latest
-    steps:
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
