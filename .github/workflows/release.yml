@@ -6,19 +6,46 @@ on:
       - main
 
 jobs:
-  release:
+  delete:
+    strategy:
+      matrix:
+        charts: [code-server, dashy]
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
      
+      - name: Set foobar to cool
+        id: release_version
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq .version charts/${{ matrix.charts }}/Chart.yaml
+
+
+      - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          delete_release: true 
+          tag_name: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+  release:
+    runs-on: ubuntu-latest
+    steps:
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_SKIP_EXISTING: true
+          # CR_PACKAGE_PATH: ${{ matrix.charts }}
+          # CR_GIT_REPO: charts
+          # CR_SKIP_EXISTING: true
