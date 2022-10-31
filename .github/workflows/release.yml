@@ -7,33 +7,18 @@ on:
 
 jobs:
   release:
-    strategy:
-      matrix:
-        charts: [code-server, dashy]
-
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
      
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - uses: dev-drprasad/delete-tag-and-release@v0.2.0
-        with:
-          delete_release: true 
-          tag_name: ${{ matrix.charts }}-${{ steps.release_version.outputs.result }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.4.1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          CR_PACKAGE_PATH: charts/${{ matrix.charts }}
-          # CR_GIT_REPO: charts
-          # CR_SKIP_EXISTING: true
+          CR_SKIP_EXISTING: true
