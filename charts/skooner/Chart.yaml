@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: stable
+description: Simple Kubernetes real-time dashboard and management.
+icon: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu8eQrFBosk7yHTiDEwjnVcMRyDD5uIaNXhlZ1m0yiC4H8RP1j0PlBPtgtv0bdH0JwlOE
+name: skooner
+sources:
+- https://github.com/skooner-k8s/skooner
+type: application
+version: 0.0.1
