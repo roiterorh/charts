@@ -35,6 +35,6 @@ ingress:
   enable: false
 
 
-pageInfo: ""
-appConfig: ""
-sections: []
+# pageInfo: ""
+# appConfig: ""
+# sections: []
