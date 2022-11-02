@@ -60,3 +60,52 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "dashy.configmap" -}}
+    pageInfo: 
+    {{- range $key, $val := .Values.pageInfo }}
+      {{ $key | toYaml}}: {{ required "a valid key is required" $val }}
+    {{- end -}}
+      
+    {{if .Values.appConfig }}
+    appConfig:
+    {{- if .Values.appConfig.webSearch}}
+      webSearch:
+      {{- range $key, $val := .Values.appConfig.webSearch }}
+        {{ $key }}: {{ required "a valid key is required" $val }}
+      {{- end }}{{ end -}}
+
+    {{- if .Values.appConfig.hideComponents}}
+      hideComponents:
+      {{- range $key, $val := .Values.appConfig.hideComponents }}
+        {{ $key }}: {{ required "a valid key is required" $val }}
+      {{- end }}{{ end -}}
+    {{ range $key, $val := .Values.appConfig }}{{ if and (ne  $key "hideComponents") (ne  $key "webSearch") }}
+      {{ $key }}: {{ required "a valid key is required" $val -}}
+    {{ end }}{{- end }}
+    {{- end }}
+    
+    {{if .Values.sections }}
+    sections: 
+      {{- range .Values.sections }}
+      - {{- range $key, $val := . -}}
+      {{- if or (eq $key "items") (eq $key "widgets") }}
+          {{$key}}: 
+          {{- range  $val }}
+            - {{- range $k, $v := . }}
+              {{ $k }}: {{ required "a valid key is required" $v -}}
+              {{ end }}
+          {{- end }}
+      {{- else if eq $key "displayData" }}
+          {{$key}}: 
+            {{- range $k, $v := . }}
+            {{ $k }}: {{ required "a valid key is required" $v -}}
+            {{ end }}
+      {{- else }}
+          {{ $key }}: {{$val}}
+      {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+  
+{{- end }}

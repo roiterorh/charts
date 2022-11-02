@@ -11,8 +11,9 @@ spec:
       {{- include "dashy.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/config: "{{ include "dashy.configmap" . | sha256sum }}"
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -32,6 +33,14 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          livenessProbe: 
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 2 #Default 0 
+            periodSeconds: 2 #Default 10 
+            timeoutSeconds: 1 #Default 1 
+            successThreshold: 1 #Default 1 
+            failureThreshold: 3 #Default 3              
           # livenessProbe:
           #   httpGet:
           #     path: /
