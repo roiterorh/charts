@@ -32,18 +32,5 @@ entries:
     urls:
     - https://github.com/roiterorh/helm/releases/download/dashy-0.0.1/dashy-0.0.1.tgz
     version: 0.0.1
-  skooner:
-  - apiVersion: v2
-    appVersion: stable
-    created: "2022-11-02T12:51:50.620170942Z"
-    description: Simple Kubernetes real-time dashboard and management.
-    digest: 5d6781d83bb61a9082764e31290c71394d367c3d64d231d9ca641f021a80cead
-    icon: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu8eQrFBosk7yHTiDEwjnVcMRyDD5uIaNXhlZ1m0yiC4H8RP1j0PlBPtgtv0bdH0JwlOE
-    name: skooner
-    sources:
-    - https://github.com/skooner-k8s/skooner
-    type: application
-    urls:
-    - https://github.com/roiterorh/helm/releases/download/skooner-0.0.1/skooner-0.0.1.tgz
-    version: 0.0.1
+
 generated: "2022-11-02T12:51:50.620179942Z"
